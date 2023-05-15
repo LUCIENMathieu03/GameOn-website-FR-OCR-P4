@@ -169,18 +169,34 @@ main {
   background-color: rgba(26, 39, 156, 0.4);
 }
 
+/* animation ouverture fermeture de la modale */
+.bground--close{
+  display: block;
+  animation: modalclose var(--modal-duration) both;
+}
+
+.bground--open{
+  animation: bgmodalopen var(--modal-duration) both;
+  display: block;
+}
+
 .content {
   margin: 5% auto;
   width: 100%;
   max-width: 500px;
-  animation-name: modalopen;
-  animation-duration: var(--modal-duration);
   background: #232323;
   border-radius: 10px;
   overflow: hidden;
   position: relative;
   color: #fff;
   padding-top: 10px;
+}
+/* animation ouverture fermeture du contenu (formulaire) de la modal */
+.content--open{
+  animation: modalopen var(--modal-duration) both;
+}
+.content--close{
+  animation: reversemodalopen var(--modal-duration) both;
 }
 
 .modal-body {
@@ -526,4 +542,39 @@ footer {
     opacity: 1;
   }
 }
+
+@keyframes reversemodalopen {
+  0%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+    transform: translateY(-150px);
+  }
+}
+
+@keyframes modalclose {
+  from {
+    opacity: 1;
+    display: block;
+  }
+  to {
+    opacity: 0;
+    display: none;
+    visibility: hidden;
+  }
+}
+
+@keyframes bgmodalopen {
+  0% {
+    opacity: 0;
+    display: none;
+    visibility: hidden;
+  }
+  100% {
+    opacity: 1;
+    display: block;
+  }
+}
+
 
