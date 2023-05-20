@@ -53,11 +53,7 @@
         <div class="content">
           <span class="close"></span>
           <div class="modal-body">
-            <form
-              name="reserve"
-              action="index.html"
-              method="post"
-            >
+            <form name="reserve" action="index.html" method="post">
               <div class="formData">
                 <label for="first">Prénom</label><br />
                 <input
@@ -193,7 +189,7 @@
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>
                 <br />
-              <!-- </div>
+                <!-- </div>
               <div class="formData"> -->
                 <input class="checkbox-input" type="checkbox" id="checkbox2" />
                 <label class="checkbox2-label" for="checkbox2">
@@ -210,12 +206,25 @@
               />
             </form>
           </div>
+          <div class="thanks thanks--unvisible">
+            <span class="close"></span>
+            <p>
+              Merci !<br />
+              Votre réservation a été reçue.
+            </p>
+            <input
+            class="btn-close"
+            type="submit"
+            class="button"
+            value="Fermer"
+          />
+          </div>
         </div>
       </div>
     </main>
     <footer>
       <p class="copyrights">Copyright 2014 - 2022, GameOn Inc.</p>
     </footer>
-    <script src="modal.js" ></script>
+    <script src="modal.js"></script>
   </body>
 </html>

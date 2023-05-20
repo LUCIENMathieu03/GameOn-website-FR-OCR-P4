@@ -11,7 +11,7 @@ function editNav() {
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
-const closeModalBtn = document.querySelector(".close");
+const closeModalBtn = document.querySelectorAll(".close");
 const content = document.querySelector(".content");
 const submitBtn = document.querySelector(".btn-submit");
 // DOM Elements //form input element
@@ -22,12 +22,14 @@ const birthdate = document.querySelector("#birthdate");
 const quantity = document.querySelector("#quantity");
 const locations = document.getElementsByName("location");
 const termsCondition = document.querySelector("#checkbox1");
-
+const closebtn = document.querySelector(".btn-close");
+const thanksModal = document.querySelector(".thanks")
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // close modal event
-closeModalBtn.addEventListener("click", closeModal);
+closeModalBtn.forEach((btn) => btn.addEventListener("click", closeModal));
+closebtn.addEventListener("click", closeModal);
 
 // launch modal form function
 function launchModal() {
@@ -53,6 +55,7 @@ quantity.addEventListener("blur", () => verifyInput(quantity));
 // we check all input before   submit
 submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
+
   verifyInput(firstName);
   verifyInput(lastName);
   verifyInput(email);
@@ -61,6 +64,22 @@ submitBtn.addEventListener("click", (e) => {
   // We give the first child just to have a input to give to the function (we can give any child)
   verifyInput(locations[0]);
   verifyInput(termsCondition);
+
+  const formIsGood =
+    verifyInput(firstName) &&
+    verifyInput(lastName) &&
+    verifyInput(email) &&
+    verifyInput(birthdate) &&
+    verifyInput(quantity) &&
+    verifyInput(locations[0]) &&
+    verifyInput(termsCondition);
+
+  if (formIsGood) {
+    thanksModal.classList.remove("thanks--unvisible");
+  } else{
+    console.log("Boouuuuuuuuh");
+  }
+
 });
 
 // Verify input validity
@@ -109,15 +128,17 @@ function verifyInput(input) {
   if (
     (input.value.length < 2 && (input.id == "first" || input.id == "last")) ||
     (input.id == "email" && !emailRegex.test(input.value)) ||
-    (input.id == "birthdate" && birthdate.value == "") ||
+    (input.id == "birthdate" && (birthdate.value == "" /* || mettre aussi date supérieur au jour actuel */) )||
     (input.id == "quantity" && quantity.value == "") ||
     (input.name == "location" && locationChecked()) ||
     (input.id == "checkbox1" && !checkbox1.checked)
   ) {
     input.parentNode.setAttribute("data-error-visible", "true");
     input.parentNode.setAttribute("data-error", dataErrorValue);
+    return false;
   } else {
     input.parentNode.setAttribute("data-error-visible", "false");
+    return true;
   }
 }
 
