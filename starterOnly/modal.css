@@ -337,7 +337,8 @@ input[data-error]::after {
   transform: rotate(-45deg);
 }
 .btn-submit,
-.btn-signup {
+.btn-signup, 
+.btn-close{
   background: #fe142f;
   display: block;
   margin: 0 auto;
@@ -576,4 +577,28 @@ footer {
   }
 }
 
+.thanks{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 8%;
+  margin: 15px auto;
+  text-align: center;
+  background: #232323;
 
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  animation: bgmodalopen 0.5s both;
+}
+.thanks p{
+  margin-bottom: 20px;
+}
+
+.thanks--unvisible{
+  display: none;
+}
