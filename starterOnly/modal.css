@@ -31,13 +31,32 @@ img {
 
 .topnav {
   overflow: hidden;
-  margin: 3.5%;
+  padding: 3.5%;
 }
 .header-logo {
     float: left;
 }
 .main-navbar {
     float: right;
+}
+@media screen and (max-width: 1110px) {
+  .main-navbar {
+    float: left;
+  }
+}
+@media screen and (max-width: 768px) {
+  .main-navbar {
+    float: right;
+  }
+}
+@media screen and (max-width: 500px) {
+  .topnav {
+    padding: 3.5%;
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    background: white;
+  }
 }
 .topnav a {
   float: left;
@@ -57,10 +76,11 @@ img {
   border-radius: 15px;
 }
 
-.topnav a.active {
+.topnav a.active  {
   background-color: #ff0000;
   color: #ffffff;
   border-radius: 15px;
+  text-decoration: underline;
 }
 
 .topnav .icon {
@@ -68,10 +88,11 @@ img {
 }
 
 @media screen and (max-width: 768px) {
-  .topnav a {display: none;}
+  .topnav a {display: none;color:#ff0000;}
   .topnav a.icon {
     float: right;
     display: block;
+    
   }
 }
 
@@ -96,7 +117,7 @@ img {
   .topnav a.icon {
     float: right;
     display: block;
-    margin-top: -15px;
+    
   }
 } 
 
@@ -110,8 +131,6 @@ main {
   margin: 1px 20px 15px;
   border-radius: 2rem;
   text-align: justify;
-
-
 }
 
 .modal-btn {
@@ -201,6 +220,16 @@ main {
 .modal-body {
   padding: 15px 8%;
   margin: 15px auto;
+}
+
+@media screen and (max-width: 500px ){
+  .bground{
+    background-color: transparent;
+  }
+  .content{
+    margin:91px auto;
+
+  }
 }
 
 label {
@@ -349,6 +378,11 @@ input[data-error]::after {
   cursor: pointer;
   border: 0;
 }
+
+.btn-close{
+  position: absolute;
+  bottom: 21px;
+}
 /* custom select styles */
 .custom-select {
   position: relative;
@@ -478,6 +512,8 @@ input[data-error]::after {
   height: 100%;
   display: block;
   padding: 0;
+  object-fit: cover;
+  object-position: right;
 }
 .copyrights {
   color: #fe142f;
@@ -494,7 +530,7 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 960px) {
   .hero-section {
     display: block;
     box-shadow: unset;
@@ -511,12 +547,12 @@ footer {
     display: none;
   }
   .hero-headline {
-    font-size: 4.5rem;
+    font-size: 3rem;
     white-space: normal;
   }
   .hero-text {
     width: unset;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
   .hero-img img {
     border-radius: 10px;
