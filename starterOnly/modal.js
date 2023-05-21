@@ -23,10 +23,10 @@ const quantity = document.querySelector("#quantity");
 const locations = document.getElementsByName("location");
 const termsCondition = document.querySelector("#checkbox1");
 const closebtn = document.querySelector(".btn-close");
-const thanksModal = document.querySelector(".thanks")
+const thanksModal = document.querySelector(".thanks");
+
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-
 // close modal event
 closeModalBtn.forEach((btn) => btn.addEventListener("click", closeModal));
 closebtn.addEventListener("click", closeModal);
@@ -45,47 +45,48 @@ function closeModal() {
   modalbg.classList.replace("bground--open", "bground--close");
 }
 
-// event listener
+// input event listener
 firstName.addEventListener("blur", () => verifyInput(firstName));
 lastName.addEventListener("blur", () => verifyInput(lastName));
 email.addEventListener("blur", () => verifyInput(email));
 birthdate.addEventListener("blur", () => verifyInput(birthdate));
 quantity.addEventListener("blur", () => verifyInput(quantity));
 
-// we check all input before   submit
+// we check all input before submit
 submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
 
-  verifyInput(firstName);
-  verifyInput(lastName);
-  verifyInput(email);
-  verifyInput(birthdate);
-  verifyInput(quantity);
-  // We give the first child just to have a input to give to the function (we can give any child)
-  verifyInput(locations[0]);
-  verifyInput(termsCondition);
+  const allInput = [
+    firstName,
+    lastName,
+    email,
+    birthdate,
+    quantity,
+    locations[0], // We give the first child just to have a input to give to the function (we can give any child)
+    termsCondition,
+  ];
 
-  const formIsGood =
-    verifyInput(firstName) &&
-    verifyInput(lastName) &&
-    verifyInput(email) &&
-    verifyInput(birthdate) &&
-    verifyInput(quantity) &&
-    verifyInput(locations[0]) &&
-    verifyInput(termsCondition);
+  let formIsGood = true;
+
+  for (input of allInput) {
+    verifyInput(input);
+    formIsGood = formIsGood && true && verifyInput(input);
+  }
 
   if (formIsGood) {
     thanksModal.classList.remove("thanks--unvisible");
-  } else{
+  } else {
     console.log("Boouuuuuuuuh");
   }
-
 });
 
 // Verify input validity
 function verifyInput(input) {
   let emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
   let dataErrorValue = "";
+  const date = new Date();
+  const todayDate =
+    date.getFullYear() + "/" + (date.getMonth()+1) + "/" + date.getDate();
 
   switch (input.name) {
     case "first":
@@ -128,10 +129,10 @@ function verifyInput(input) {
   if (
     (input.value.length < 2 && (input.id == "first" || input.id == "last")) ||
     (input.id == "email" && !emailRegex.test(input.value)) ||
-    (input.id == "birthdate" && (birthdate.value == "" /* || mettre aussi date supérieur au jour actuel */) )||
-    (input.id == "quantity" && quantity.value == "") ||
+    (input.id == "birthdate" &&  compareDate(input.value, todayDate) ) ||
+    (input.id == "quantity" && input.value == "") ||
     (input.name == "location" && locationChecked()) ||
-    (input.id == "checkbox1" && !checkbox1.checked)
+    (input.id == "checkbox1" && !input.checked)
   ) {
     input.parentNode.setAttribute("data-error-visible", "true");
     input.parentNode.setAttribute("data-error", dataErrorValue);
@@ -140,6 +141,17 @@ function verifyInput(input) {
     input.parentNode.setAttribute("data-error-visible", "false");
     return true;
   }
+}
+
+// check if the birth date is superior to the actual date 
+function compareDate(d1, d2) {
+  d1 = d1.split("-").join("/");
+  if (d1) {
+    let date1 = new Date(d1).getTime();
+    let date2 = new Date(d2).getTime();
+    return date1 > date2;
+  }
+  return true;
 }
 
 // search for checked location
