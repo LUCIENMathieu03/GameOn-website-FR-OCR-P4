@@ -1,20 +1,19 @@
-function editNav() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
-  }
-}
+//////////////////////////////////////////////////////
+/////////////////// This file is old main js file ///
+////////////////////////////////////////////////////
 
-// DOM Elements
+
+/////////////////////////
+/////// DOM Elements ///
+///////////////////////
+const menuBurger = document.querySelector('.icon');
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const closeModalBtn = document.querySelectorAll(".close");
 const content = document.querySelector(".content");
 const submitBtn = document.querySelector(".btn-submit");
-// DOM Elements //form input element
+//form input
 const firstName = document.querySelector("#first");
 const lastName = document.querySelector("#last");
 const email = document.querySelector("#email");
@@ -22,15 +21,22 @@ const birthdate = document.querySelector("#birthdate");
 const quantity = document.querySelector("#quantity");
 const locations = document.getElementsByName("location");
 const termsCondition = document.querySelector("#checkbox1");
-const closebtn = document.querySelector(".btn-close");
+const closeBtn = document.querySelector(".btn-close");
 const thanksModal = document.querySelector(".thanks");
 
-// launch modal event
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-// close modal event
-closeModalBtn.forEach((btn) => btn.addEventListener("click", closeModal));
-closebtn.addEventListener("click", closeModal);
+/////////////////////////
+////////// Functions ///
+///////////////////////
 
+// toggle the menu burger
+function toggleMenu() {
+  const x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
 // launch modal form function
 function launchModal() {
   modalbg.classList.remove("bground--close");
@@ -45,44 +51,9 @@ function closeModal() {
   modalbg.classList.replace("bground--open", "bground--close");
 }
 
-// input event listener
-firstName.addEventListener("blur", () => verifyInput(firstName));
-lastName.addEventListener("blur", () => verifyInput(lastName));
-email.addEventListener("blur", () => verifyInput(email));
-birthdate.addEventListener("blur", () => verifyInput(birthdate));
-quantity.addEventListener("blur", () => verifyInput(quantity));
-
-// we check all input before submit
-submitBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-
-  const allInput = [
-    firstName,
-    lastName,
-    email,
-    birthdate,
-    quantity,
-    locations[0], // We give the first child just to have a input to give to the function (we can give any child)
-    termsCondition,
-  ];
-
-  let formIsGood = true;
-
-  for (input of allInput) {
-    verifyInput(input);
-    formIsGood = formIsGood && true && verifyInput(input);
-  }
-
-  if (formIsGood) {
-    thanksModal.classList.remove("thanks--unvisible");
-  } else {
-    console.log("Boouuuuuuuuh");
-  }
-});
-
 // Verify input validity
 function verifyInput(input) {
-  let emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
   let dataErrorValue = "";
   const date = new Date();
   const todayDate =
@@ -164,3 +135,52 @@ function locationChecked() {
   }
   return result;
 }
+
+///////////////////////////////
+////////// Event Listeners ///
+/////////////////////////////
+
+// Menu burger event
+menuBurger.addEventListener("click", toggleMenu);
+// launch modal event
+modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
+// close modal event
+closeModalBtn.forEach((btn) => btn.addEventListener("click", closeModal));
+closeBtn.addEventListener("click", closeModal);
+
+// input event listener
+firstName.addEventListener("input", () => verifyInput(firstName));
+lastName.addEventListener("input", () => verifyInput(lastName));
+email.addEventListener("input", () => verifyInput(email));
+birthdate.addEventListener("input", () => verifyInput(birthdate));
+quantity.addEventListener("input", () => verifyInput(quantity));
+
+// we check all input before submit
+submitBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  const allInput = [
+    firstName,
+    lastName,
+    email,
+    birthdate,
+    quantity,
+    locations[0], // We give the first child just to have a input to give to the function (we can give any child)
+    termsCondition,
+  ];
+
+  let formIsGood = true;
+
+  for (input of allInput) {
+    verifyInput(input);
+    formIsGood = formIsGood && true && verifyInput(input);
+  }
+
+  if (formIsGood) {
+    thanksModal.classList.remove("thanks--unvisible");
+  } else {
+    console.log("Boouuuuuuuuh");
+  }
+});
+
+
