@@ -88,11 +88,11 @@ export function verifyInput(input) {
 }
 
 // check if the birth date is superior to the actual date
-const compareDate = (d1, d2) => {
-  d1 = d1.split("-").join("/");
-  if (d1) {
-    let date1 = new Date(d1).getTime();
-    let date2 = new Date(d2).getTime();
+const compareDate = (firstDate, secondDate) => {
+  firstDate = firstDate.split("-").join("/");
+  if (firstDate) {
+    let date1 = new Date(firstDate).getTime();
+    let date2 = new Date(secondDate).getTime();
     return date1 > date2;
   }
   return true;
